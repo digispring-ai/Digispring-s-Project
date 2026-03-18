@@ -1,0 +1,199 @@
+{
+  "site": {
+    "name": "和市",
+    "tagline": "日本から中国へ、本物の良品を",
+    "description": "日本の職人・地元商家の商品を中国の消費者へ"
+  },
+  "nav": {
+    "home": "ホーム",
+    "products": "商品",
+    "merchants": "ショップ",
+    "cart": "カート",
+    "orders": "注文履歴",
+    "account": "アカウント",
+    "dashboard": "管理画面",
+    "admin": "管理",
+    "login": "ログイン",
+    "register": "登録",
+    "logout": "ログアウト",
+    "applyMerchant": "出店申請"
+  },
+  "home": {
+    "hero": {
+      "title": "日本の美を発見する",
+      "subtitle": "職人の心、本物の商品、あなたの元へ",
+      "cta": "商品を見る",
+      "merchantCta": "出店する"
+    },
+    "categories": "カテゴリー",
+    "featured": "おすすめ商品",
+    "merchants": "人気ショップ",
+    "viewAll": "すべて見る"
+  },
+  "categories": {
+    "home": "ホーム・インテリア",
+    "daily": "日用品",
+    "handmade": "手作り・工芸品",
+    "sake": "清酒・日本酒",
+    "beauty": "美容・コスメ",
+    "food": "食品・グルメ",
+    "tea": "茶道・茶器",
+    "stationery": "文具・紙雑貨",
+    "fashion": "ファッション・和服",
+    "health": "健康・ウェルネス",
+    "garden": "園芸・植物",
+    "pet": "ペット用品"
+  },
+  "product": {
+    "addToCart": "カートに追加",
+    "buyNow": "今すぐ購入",
+    "outOfStock": "在庫切れ",
+    "price": "価格",
+    "stock": "在庫",
+    "description": "商品説明",
+    "reviews": "レビュー",
+    "noReviews": "レビューなし",
+    "fromMerchant": "販売元",
+    "tags": "タグ",
+    "priceJpy": "円価格",
+    "priceCny": "人民元価格"
+  },
+  "cart": {
+    "title": "ショッピングカート",
+    "empty": "カートは空です",
+    "emptyHint": "商品を探してみましょう",
+    "total": "合計",
+    "checkout": "購入手続き",
+    "remove": "削除",
+    "quantity": "数量",
+    "continueShopping": "買い物を続ける"
+  },
+  "checkout": {
+    "title": "注文確認",
+    "shippingAddress": "配送先住所",
+    "addAddress": "住所を追加",
+    "orderSummary": "注文内容",
+    "note": "備考",
+    "notePlaceholder": "ショップへのメッセージ（任意）",
+    "submit": "注文を確定する",
+    "paymentNotice": "ご注文後、カスタマーサービスより支払い方法をご案内します",
+    "success": "注文が完了しました",
+    "successHint": "確認後、担当者よりご連絡いたします"
+  },
+  "order": {
+    "title": "注文履歴",
+    "empty": "注文がありません",
+    "status": {
+      "pending": "確認待ち",
+      "confirmed": "確認済み",
+      "shipped": "発送済み",
+      "delivered": "配達完了",
+      "cancelled": "キャンセル"
+    },
+    "total": "合計",
+    "items": "点",
+    "detail": "注文詳細",
+    "orderNo": "注文番号",
+    "createdAt": "注文日時"
+  },
+  "auth": {
+    "login": "ログイン",
+    "register": "アカウント登録",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "fullName": "お名前",
+    "phone": "電話番号",
+    "loginBtn": "ログイン",
+    "registerBtn": "登録する",
+    "noAccount": "アカウントをお持ちでない方",
+    "hasAccount": "すでにアカウントをお持ちの方",
+    "asBuyer": "購入者として",
+    "asMerchant": "出店者として",
+    "forgotPassword": "パスワードをお忘れの方",
+    "loginSuccess": "ログインしました",
+    "registerSuccess": "登録が完了しました"
+  },
+  "merchant": {
+    "apply": {
+      "title": "出店申請",
+      "subtitle": "和市に出店して、あなたの商品を中国の消費者に届けましょう",
+      "step1": "ショップ情報",
+      "step2": "連絡先情報",
+      "storeName": "ショップ名（日本語）",
+      "storeNameZh": "ショップ名（中国語）",
+      "description": "ショップ説明（日本語）",
+      "descriptionZh": "ショップ説明（中国語）",
+      "prefecture": "都道府県",
+      "submit": "申請を送信",
+      "pending": "審査中",
+      "pendingHint": "3営業日以内に審査結果をお知らせします"
+    },
+    "dashboard": {
+      "title": "管理画面",
+      "totalProducts": "販売中商品",
+      "totalOrders": "総注文数",
+      "pendingOrders": "処理待ち",
+      "recentOrders": "最近の注文"
+    },
+    "products": {
+      "title": "商品管理",
+      "add": "商品を追加",
+      "edit": "編集",
+      "delete": "削除",
+      "status": {
+        "draft": "下書き",
+        "active": "販売中",
+        "inactive": "非公開"
+      },
+      "publish": "公開する",
+      "unpublish": "非公開にする"
+    }
+  },
+  "admin": {
+    "title": "管理画面",
+    "merchants": "出店審査",
+    "approve": "承認",
+    "reject": "却下",
+    "suspend": "停止",
+    "status": {
+      "pending": "審査待ち",
+      "approved": "承認済み",
+      "suspended": "停止中"
+    }
+  },
+  "common": {
+    "loading": "読み込み中",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "delete": "削除",
+    "edit": "編集",
+    "back": "戻る",
+    "search": "検索",
+    "searchPlaceholder": "商品・ショップを検索...",
+    "noResults": "見つかりませんでした",
+    "required": "必須",
+    "optional": "任意",
+    "submit": "送信",
+    "close": "閉じる",
+    "more": "もっと見る",
+    "viewAll": "すべて見る",
+    "currency": "¥",
+    "jpy": "円",
+    "cny": "元"
+  },
+  "address": {
+    "name": "お名前",
+    "phone": "電話番号",
+    "province": "省",
+    "city": "市",
+    "district": "区/県",
+    "address": "番地・建物名",
+    "postalCode": "郵便番号",
+    "setDefault": "デフォルトに設定",
+    "default": "デフォルト"
+  }
+}
