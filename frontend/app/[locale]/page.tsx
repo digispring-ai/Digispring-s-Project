@@ -13,27 +13,33 @@ export default async function HomePage() {
   const tn = await getTranslations('nav')
   const tc = await getTranslations('categories')
   const locale = (await getLocale()) as Locale
-  const supabase = await createClient()
+  let categories: any[] = []
+  let products: any[] = []
+  let merchants: any[] = []
 
-  const [categoriesRes, productsRes, merchantsRes] = await Promise.all([
-    supabase.from('categories').select('*').order('sort_order'),
-    supabase
-      .from('products')
-      .select('*, merchants(*), categories(*)')
-      .eq('status', 'active')
-      .order('created_at', { ascending: false })
-      .limit(8),
-    supabase
-      .from('merchants')
-      .select('*')
-      .eq('status', 'approved')
-      .order('created_at', { ascending: false })
-      .limit(6),
-  ])
-
-  const categories = categoriesRes.data ?? []
-  const products = productsRes.data ?? []
-  const merchants = merchantsRes.data ?? []
+  try {
+    const supabase = await createClient()
+    const [categoriesRes, productsRes, merchantsRes] = await Promise.all([
+      supabase.from('categories').select('*').order('sort_order'),
+      supabase
+        .from('products')
+        .select('*, merchants(*), categories(*)')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .limit(8),
+      supabase
+        .from('merchants')
+        .select('*')
+        .eq('status', 'approved')
+        .order('created_at', { ascending: false })
+        .limit(6),
+    ])
+    categories = categoriesRes.data ?? []
+    products = productsRes.data ?? []
+    merchants = merchantsRes.data ?? []
+  } catch {
+    // Database unavailable — render page without dynamic content
+  }
 
   const validCatKeys = ['home', 'daily', 'handmade', 'sake', 'beauty', 'food', 'tea', 'stationery', 'fashion', 'health', 'garden', 'pet'] as const
   type CatKey = typeof validCatKeys[number]
