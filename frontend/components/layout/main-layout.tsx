@@ -4,17 +4,24 @@ import { createClient } from '@/lib/supabase/server'
 import type { Profile } from '@/types'
 
 export async function MainLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
+  let user = null
   let profile: Profile | null = null
-  if (user) {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single()
-    profile = data
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+
+    if (user) {
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+      profile = profileData
+    }
+  } catch {
+    // Supabase unavailable — render layout without auth state
   }
 
   return (
