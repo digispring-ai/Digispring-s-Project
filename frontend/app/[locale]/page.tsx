@@ -47,83 +47,114 @@ export default async function HomePage() {
 
   return (
     <MainLayout>
-      {/* Hero */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-washi to-mist/20">
-        {/* Decorative Japanese characters */}
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-washi">
+        {/* Layered decorative kanji — varying opacity & size for depth */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-          <span className="absolute top-12 right-12 text-[120px] font-light text-mist/30 leading-none">和</span>
-          <span className="absolute bottom-12 left-8 text-[80px] font-light text-mist/20 leading-none">美</span>
-          <span className="absolute top-1/2 left-4 text-[60px] font-light text-mist/15 leading-none -translate-y-1/2">匠</span>
+          {/* Large background kanji */}
+          <span className="absolute -top-4 right-8 text-[180px] font-light text-mist/20 leading-none font-serif">和</span>
+          <span className="absolute bottom-16 -left-4 text-[120px] font-light text-mist/15 leading-none font-serif">美</span>
+          <span className="absolute top-1/2 left-6 text-[80px] font-light text-mist/10 leading-none font-serif -translate-y-1/2">匠</span>
+          {/* Small floating accent characters */}
+          <span className="absolute top-20 left-1/4 text-[28px] font-light text-mist/20 leading-none font-serif">雅</span>
+          <span className="absolute bottom-32 right-1/4 text-[22px] font-light text-mist/15 leading-none font-serif">粋</span>
+          {/* Thin vertical lines — shoji screen reference */}
+          <div className="absolute top-0 bottom-0 left-1/3 w-px bg-mist/30" />
+          <div className="absolute top-0 bottom-0 right-1/3 w-px bg-mist/20" />
+        </div>
+
+        {/* Hanko seal — top right decorative element */}
+        <div className="absolute top-12 right-12 select-none pointer-events-none">
+          <div className="jp-seal w-14 h-14 text-2xl opacity-20 rounded-[2px] font-serif">
+            市
+          </div>
         </div>
 
         <div className="relative text-center px-4 max-w-2xl mx-auto">
-          <p className="text-xs font-light text-earth tracking-[0.3em] uppercase mb-6">
+          {/* Eyebrow label */}
+          <div className="jp-section-label justify-center mb-8">
             Japan → China
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-ink tracking-wider leading-tight mb-6">
+          </div>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-ink tracking-[0.08em] leading-tight mb-6 font-serif">
             {t('hero.title')}
           </h1>
-          <p className="text-base sm:text-lg font-light text-earth tracking-wide mb-10 leading-relaxed">
+          {/* Thin divider */}
+          <div className="flex items-center justify-center gap-4 my-6">
+            <div className="w-12 h-px bg-mist" />
+            <span className="text-beni text-xs select-none">◆</span>
+            <div className="w-12 h-px bg-mist" />
+          </div>
+          <p className="text-sm sm:text-base font-light text-earth tracking-wide mb-10 leading-relaxed">
             {t('hero.subtitle')}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-washi text-sm font-light tracking-wider hover:bg-earth transition-colors"
+              className="inline-flex items-center gap-2 px-9 py-3 bg-ink text-washi text-sm font-light tracking-[0.15em] hover:bg-sumi transition-colors duration-300"
             >
               {t('hero.cta')}
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <Link
               href="/apply"
-              className="inline-flex items-center gap-2 px-8 py-3 border border-ink text-ink text-sm font-light tracking-wider hover:bg-ink hover:text-washi transition-colors"
+              className="inline-flex items-center gap-2 px-9 py-3 border border-earth text-earth text-sm font-light tracking-[0.15em] hover:border-ink hover:text-ink transition-colors duration-300"
             >
               {t('hero.merchantCta')}
             </Link>
           </div>
         </div>
+
+        {/* Bottom fade to page */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-washi to-transparent pointer-events-none" />
       </section>
 
-      {/* Categories */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
-        <div className="flex items-center justify-between mb-10">
-          <h2 className="text-lg font-light text-ink tracking-widest">{t('categories')}</h2>
-        </div>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/products?category=${cat.slug}`}
-              className="group flex flex-col items-center gap-2 p-4 rounded hover:bg-mist/50 transition-colors"
-            >
-              <span className="text-2xl">{cat.icon}</span>
-              <span className="text-xs font-light text-earth group-hover:text-ink transition-colors text-center leading-tight">
-                {isCatKey(cat.slug) ? tc(cat.slug) : cat.name_zh}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* ── Categories ───────────────────────────────────── */}
+      {categories.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+          <div className="mb-10">
+            <div className="jp-section-label mb-2">{t('categories')}</div>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/products?category=${cat.slug}`}
+                className="group flex flex-col items-center gap-2.5 p-4 border border-transparent hover:border-mist hover:bg-mist/20 transition-all duration-200"
+              >
+                <span className="text-2xl">{cat.icon}</span>
+                <span className="text-[11px] font-light text-earth group-hover:text-ink transition-colors text-center leading-tight tracking-wide">
+                  {isCatKey(cat.slug) ? tc(cat.slug) : cat.name_zh}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* Divider */}
+      {/* ── Divider ──────────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="border-t border-mist" />
+        <div className="jp-divider text-[10px]">精選</div>
       </div>
 
-      {/* Featured Products */}
+      {/* ── Featured Products ────────────────────────────── */}
       {products.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-lg font-light text-ink tracking-widest">{t('featured')}</h2>
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <div className="jp-section-label mb-2">{t('featured')}</div>
+              <p className="text-[11px] font-light text-earth/50 tracking-[0.2em]">精選商品</p>
+            </div>
             <Link
               href="/products"
-              className="flex items-center gap-1 text-sm font-light text-earth hover:text-ink transition-colors"
+              className="flex items-center gap-1.5 text-xs font-light text-earth hover:text-ink transition-colors group"
             >
               {t('viewAll')}
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 sm:gap-7">
             {products.map((product) => (
               <ProductCard key={product.id} product={product as any} />
             ))}
@@ -131,18 +162,21 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Featured Merchants */}
+      {/* ── Featured Merchants ───────────────────────────── */}
       {merchants.length > 0 && (
-        <section className="bg-mist/20 py-20">
+        <section className="bg-mist/15 py-20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-10">
-              <h2 className="text-lg font-light text-ink tracking-widest">{t('merchants')}</h2>
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <div className="jp-section-label mb-2">{t('merchants')}</div>
+                <p className="text-[11px] font-light text-earth/50 tracking-[0.2em]">出店商家</p>
+              </div>
               <Link
                 href="/merchants"
-                className="flex items-center gap-1 text-sm font-light text-earth hover:text-ink transition-colors"
+                className="flex items-center gap-1.5 text-xs font-light text-earth hover:text-ink transition-colors group"
               >
                 {t('viewAll')}
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -154,29 +188,37 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Merchant CTA Banner */}
+      {/* ── Merchant CTA ─────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
-        <div className="border border-mist rounded p-12 text-center relative overflow-hidden">
-          <div className="absolute top-4 right-6 text-[80px] font-light text-mist/20 select-none leading-none">
-            店
+        <div className="relative border border-mist p-12 sm:p-16 text-center overflow-hidden">
+          {/* Background kanji decoration */}
+          <div className="absolute top-0 right-0 bottom-0 w-32 overflow-hidden pointer-events-none select-none flex flex-col items-center justify-center gap-4 border-l border-mist/30">
+            <span className="jp-vertical text-5xl font-light text-mist/30 leading-none font-serif">店</span>
+            <span className="jp-vertical text-3xl font-light text-mist/20 leading-none font-serif">舗</span>
           </div>
-          <p className="text-xs font-light text-earth tracking-[0.3em] uppercase mb-4">
-            For Japanese Merchants
-          </p>
-          <h3 className="text-2xl font-light text-ink tracking-wide mb-4">
+          {/* Left accent line in beni */}
+          <div className="absolute left-0 top-8 bottom-8 w-[2px] bg-beni/40" />
+
+          <div className="jp-section-label justify-center mb-5">For Japanese Merchants</div>
+          <h3 className="text-2xl sm:text-3xl font-light text-ink tracking-wider mb-4 font-serif">
             {locale === 'ja' ? '中国市場へ進出しませんか' : '让中国消费者发现您的好物'}
           </h3>
-          <p className="text-sm font-light text-earth mb-8 max-w-md mx-auto leading-relaxed">
+          <div className="flex items-center justify-center gap-4 my-5">
+            <div className="w-8 h-px bg-mist" />
+            <span className="text-beni text-[10px] select-none">◆</span>
+            <div className="w-8 h-px bg-mist" />
+          </div>
+          <p className="text-sm font-light text-earth mb-8 max-w-sm mx-auto leading-relaxed">
             {locale === 'ja'
               ? '和市に出店して、あなたの商品を中国の消費者に届けましょう。申請から審査まで、丁寧にサポートします。'
               : '加入和市，零门槛将日本好物带给中国消费者。我们提供全程入驻支持。'}
           </p>
           <Link
             href="/apply"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-ink text-washi text-sm font-light tracking-wider hover:bg-earth transition-colors"
+            className="inline-flex items-center gap-2 px-9 py-3 bg-ink text-washi text-sm font-light tracking-[0.15em] hover:bg-sumi transition-colors duration-300"
           >
             {tn('applyMerchant')}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </section>

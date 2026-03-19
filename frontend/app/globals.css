@@ -2,54 +2,151 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  /* 日式极简配色 */
-  --color-washi: #FAFAF8;
-  --color-ink: #1A1A1A;
-  --color-aged: #C8B89A;
-  --color-earth: #8B7D6B;
-  --color-mist: #E8E2D9;
-  --color-matcha: #7A9E7E;
-  --color-sakura: #E8B4B8;
+  /* ── 日式配色 Japanese Palette ── */
+  --color-washi: #F8F7F4;       /* 和紙 warm off-white */
+  --color-ink: #1A1A1A;         /* 墨 deep ink */
+  --color-aged: #C8B89A;        /* 古色 aged paper */
+  --color-earth: #8B7D6B;       /* 土色 earth */
+  --color-mist: #E6DFD5;        /* 霞 mist */
+  --color-matcha: #6B8F71;      /* 抹茶 */
+  --color-sakura: #DDA0AA;      /* 桜 cherry blossom */
+  --color-beni: #B5451B;        /* 紅 vermillion — accent, use sparingly */
+  --color-sumi: #1C1C2E;        /* 墨汁 deep sumi ink */
+  --color-fuji: #8A7BAB;        /* 藤 wisteria */
 
-  /* 字体 */
-  --font-family-sans: 'Noto Sans SC', 'Noto Sans JP', 'Inter', system-ui, sans-serif;
-  --font-family-serif: 'Noto Serif SC', 'Noto Serif JP', 'Georgia', serif;
+  /* ── 字体 Fonts ── */
+  --font-family-sans: 'Noto Sans JP', 'Noto Sans SC', 'Inter', system-ui, sans-serif;
+  --font-family-serif: 'Shippori Mincho B1', 'Noto Serif JP', 'Noto Serif SC', 'Georgia', serif;
 
-  /* 圆角 */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
+  /* ── 圆角 Border Radius — sharp, Japanese precision ── */
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
 }
 
-/* 全局基础样式 */
+/* ── 全局基础样式 ── */
 body {
   background-color: var(--color-washi);
   color: var(--color-ink);
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 纤细滚动条 */
+/* ── 选中颜色 Text Selection ── */
+::selection {
+  background-color: color-mix(in srgb, var(--color-sakura) 50%, transparent);
+  color: var(--color-ink);
+}
+
+/* ── 纤细滚动条 Thin Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-mist);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-aged);
-  border-radius: 2px;
+  border-radius: 0;
 }
 
-/* 链接基础样式 */
+/* ── 链接 & 图片 ── */
 a {
   color: inherit;
   text-decoration: none;
 }
-
-/* 图片默认 */
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* ── 动画 Animations ── */
+@keyframes ink-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ink-spread {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+@keyframes float-kanji {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── 日式装饰工具类 Japanese Utilities ── */
+
+/* 竖排文字 Vertical text */
+.jp-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* 节标题 Section title with red accent mark */
+.jp-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-earth);
+}
+.jp-section-label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--color-beni);
+  flex-shrink: 0;
+}
+
+/* 分隔线 Japanese-style centered divider */
+.jp-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-earth);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+}
+.jp-divider::before,
+.jp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-mist);
+}
+
+/* 朱印風 Vermillion seal / hanko style */
+.jp-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--color-beni);
+  color: var(--color-beni);
+  font-family: var(--font-family-serif);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  aspect-ratio: 1;
+}
+
+/* 細線 Ultra-thin ink rule */
+.jp-rule {
+  border: none;
+  border-top: 1px solid var(--color-mist);
+}
+.jp-rule-dark {
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+}
+
+/* アニメーション Animation helper */
+.jp-animate {
+  animation: ink-fade 0.6s ease both;
 }

@@ -46,8 +46,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={htmlLang[locale] ?? locale}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&family=Shippori+Mincho+B1:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
