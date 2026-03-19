@@ -17,7 +17,6 @@ export default function CheckoutPage() {
   const ta = useTranslations('address')
   const locale = useLocale() as Locale
   const router = useRouter()
-  const supabase = createClient()
   const { items, totalPrice, clearCart } = useCartStore()
 
   const [address, setAddress] = useState<ShippingAddress>({
@@ -39,6 +38,7 @@ export default function CheckoutPage() {
     setLoading(true)
     setError('')
 
+    const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       router.push('/auth/login')

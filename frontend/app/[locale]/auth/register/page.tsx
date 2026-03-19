@@ -13,7 +13,6 @@ export default function RegisterPage() {
   const t = useTranslations('auth')
   const ts = useTranslations('site')
   const router = useRouter()
-  const supabase = createClient()
 
   const [role, setRole] = useState<Role>('buyer')
   const [email, setEmail] = useState('')
@@ -27,6 +26,7 @@ export default function RegisterPage() {
     setLoading(true)
     setError('')
 
+    const supabase = createClient()
     const { error } = await supabase.auth.signUp({
       email,
       password,

@@ -11,7 +11,6 @@ export default function LoginPage() {
   const t = useTranslations('auth')
   const ts = useTranslations('site')
   const router = useRouter()
-  const supabase = createClient()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,6 +22,7 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
+    const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
       setError(error.message)

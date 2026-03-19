@@ -21,7 +21,6 @@ const PREFECTURES = [
 export default function ApplyPage() {
   const t = useTranslations('merchant.apply')
   const router = useRouter()
-  const supabase = createClient()
 
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -44,6 +43,7 @@ export default function ApplyPage() {
     setLoading(true)
     setError('')
 
+    const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       router.push('/auth/login')
