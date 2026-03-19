@@ -1,0 +1,199 @@
+{
+  "site": {
+    "name": "Waichi",
+    "tagline": "Authentic Japanese Goods, Delivered",
+    "description": "Curated Japanese local merchants bringing artisan craftsmanship to China"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "merchants": "Merchants",
+    "cart": "Cart",
+    "orders": "My Orders",
+    "account": "Account",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "applyMerchant": "Become a Seller"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Japan's Finest",
+      "subtitle": "Artisan merchants, authentic goods, delivered to your door",
+      "cta": "Start Exploring",
+      "merchantCta": "Sell on Waichi"
+    },
+    "categories": "Categories",
+    "featured": "Featured Products",
+    "merchants": "Featured Merchants",
+    "viewAll": "View All"
+  },
+  "categories": {
+    "home": "Home & Living",
+    "daily": "Daily Essentials",
+    "handmade": "Handmade",
+    "sake": "Sake & Spirits",
+    "beauty": "Beauty",
+    "food": "Food & Gourmet",
+    "tea": "Tea Culture",
+    "stationery": "Stationery",
+    "fashion": "Fashion",
+    "health": "Health & Wellness",
+    "garden": "Garden",
+    "pet": "Pet Goods"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "outOfStock": "Out of Stock",
+    "price": "Price",
+    "stock": "Stock",
+    "description": "Description",
+    "reviews": "Reviews",
+    "noReviews": "No reviews yet",
+    "fromMerchant": "From",
+    "tags": "Tags",
+    "priceJpy": "Price in JPY",
+    "priceCny": "Price in CNY"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "emptyHint": "Discover authentic Japanese goods",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "continueShopping": "Continue Shopping"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "addAddress": "Add Address",
+    "orderSummary": "Order Summary",
+    "note": "Note",
+    "notePlaceholder": "Message to seller (optional)",
+    "submit": "Place Order",
+    "paymentNotice": "After placing your order, our team will contact you to arrange payment",
+    "success": "Order Placed Successfully",
+    "successHint": "We'll contact you shortly to confirm your order"
+  },
+  "order": {
+    "title": "My Orders",
+    "empty": "No orders yet",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "total": "Total",
+    "items": "items",
+    "detail": "Order Details",
+    "orderNo": "Order #",
+    "createdAt": "Ordered on"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "phone": "Phone",
+    "loginBtn": "Login",
+    "registerBtn": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "asBuyer": "I'm a Buyer",
+    "asMerchant": "I'm a Merchant",
+    "forgotPassword": "Forgot password?",
+    "loginSuccess": "Logged in successfully",
+    "registerSuccess": "Account created successfully"
+  },
+  "merchant": {
+    "apply": {
+      "title": "Merchant Application",
+      "subtitle": "Join Waichi and bring your products to Chinese consumers",
+      "step1": "Store Information",
+      "step2": "Contact Details",
+      "storeName": "Store Name (Japanese)",
+      "storeNameZh": "Store Name (Chinese)",
+      "description": "Store Description (Japanese)",
+      "descriptionZh": "Store Description (Chinese)",
+      "prefecture": "Prefecture",
+      "submit": "Submit Application",
+      "pending": "Application Under Review",
+      "pendingHint": "We'll review your application within 3 business days"
+    },
+    "dashboard": {
+      "title": "Merchant Dashboard",
+      "totalProducts": "Active Products",
+      "totalOrders": "Total Orders",
+      "pendingOrders": "Pending",
+      "recentOrders": "Recent Orders"
+    },
+    "products": {
+      "title": "Product Management",
+      "add": "Add Product",
+      "edit": "Edit",
+      "delete": "Delete",
+      "status": {
+        "draft": "Draft",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "publish": "Publish",
+      "unpublish": "Unpublish"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "merchants": "Merchant Review",
+    "approve": "Approve",
+    "reject": "Reject",
+    "suspend": "Suspend",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "suspended": "Suspended"
+    }
+  },
+  "common": {
+    "loading": "Loading",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "search": "Search",
+    "searchPlaceholder": "Search products, merchants...",
+    "noResults": "No results found",
+    "required": "Required",
+    "optional": "Optional",
+    "submit": "Submit",
+    "close": "Close",
+    "more": "More",
+    "viewAll": "View All",
+    "currency": "¥",
+    "jpy": "¥",
+    "cny": "¥"
+  },
+  "address": {
+    "name": "Recipient Name",
+    "phone": "Phone Number",
+    "province": "Province",
+    "city": "City",
+    "district": "District",
+    "address": "Street Address",
+    "postalCode": "Postal Code",
+    "setDefault": "Set as Default",
+    "default": "Default"
+  }
+}

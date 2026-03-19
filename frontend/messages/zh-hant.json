@@ -1,0 +1,199 @@
+{
+  "site": {
+    "name": "和市",
+    "tagline": "來自日本的真誠好物",
+    "description": "精選日本本土商家，將匠心之作直送您手"
+  },
+  "nav": {
+    "home": "首頁",
+    "products": "商品",
+    "merchants": "商家",
+    "cart": "購物車",
+    "orders": "我的訂單",
+    "account": "帳戶",
+    "dashboard": "商家後台",
+    "admin": "管理",
+    "login": "登入",
+    "register": "註冊",
+    "logout": "登出",
+    "applyMerchant": "商家入駐"
+  },
+  "home": {
+    "hero": {
+      "title": "發現日本之美",
+      "subtitle": "匠心商家，地道好物，直達你手",
+      "cta": "開始探索",
+      "merchantCta": "商家入駐"
+    },
+    "categories": "商品分類",
+    "featured": "精選商品",
+    "merchants": "優質商家",
+    "viewAll": "查看全部"
+  },
+  "categories": {
+    "home": "家居·家裝",
+    "daily": "日用品",
+    "handmade": "手工藝",
+    "sake": "清酒",
+    "beauty": "美妝護膚",
+    "food": "食品·特產",
+    "tea": "茶道·茶具",
+    "stationery": "文具",
+    "fashion": "服裝·和服",
+    "health": "健康養生",
+    "garden": "園藝",
+    "pet": "寵物用品"
+  },
+  "product": {
+    "addToCart": "加入購物車",
+    "buyNow": "立即購買",
+    "outOfStock": "暫無庫存",
+    "price": "價格",
+    "stock": "庫存",
+    "description": "商品描述",
+    "reviews": "買家評價",
+    "noReviews": "暫無評價",
+    "fromMerchant": "來自",
+    "tags": "標籤",
+    "priceJpy": "日圓參考價",
+    "priceCny": "人民幣價格"
+  },
+  "cart": {
+    "title": "購物車",
+    "empty": "購物車還是空的",
+    "emptyHint": "去發現日本好物吧",
+    "total": "合計",
+    "checkout": "去結算",
+    "remove": "移除",
+    "quantity": "數量",
+    "continueShopping": "繼續購物"
+  },
+  "checkout": {
+    "title": "確認訂單",
+    "shippingAddress": "收貨地址",
+    "addAddress": "新增地址",
+    "orderSummary": "訂單摘要",
+    "note": "備註",
+    "notePlaceholder": "給商家留言（選填）",
+    "submit": "提交訂單",
+    "paymentNotice": "下單後，客服將聯繫您確認付款方式",
+    "success": "訂單提交成功",
+    "successHint": "我們將盡快聯繫您確認訂單"
+  },
+  "order": {
+    "title": "我的訂單",
+    "empty": "暫無訂單",
+    "status": {
+      "pending": "待確認",
+      "confirmed": "已確認",
+      "shipped": "已發貨",
+      "delivered": "已收貨",
+      "cancelled": "已取消"
+    },
+    "total": "合計",
+    "items": "件商品",
+    "detail": "訂單詳情",
+    "orderNo": "訂單號",
+    "createdAt": "下單時間"
+  },
+  "auth": {
+    "login": "登入",
+    "register": "註冊",
+    "email": "電郵",
+    "password": "密碼",
+    "confirmPassword": "確認密碼",
+    "fullName": "姓名",
+    "phone": "電話號碼",
+    "loginBtn": "登入",
+    "registerBtn": "註冊",
+    "noAccount": "沒有帳戶？",
+    "hasAccount": "已有帳戶？",
+    "asBuyer": "我是買家",
+    "asMerchant": "我是商家",
+    "forgotPassword": "忘記密碼？",
+    "loginSuccess": "登入成功",
+    "registerSuccess": "註冊成功"
+  },
+  "merchant": {
+    "apply": {
+      "title": "商家入駐申請",
+      "subtitle": "加入和市，將您的好物帶給中國消費者",
+      "step1": "店鋪資訊",
+      "step2": "聯絡方式",
+      "storeName": "店鋪名稱（日文）",
+      "storeNameZh": "店鋪名稱（中文）",
+      "description": "店鋪簡介（日文）",
+      "descriptionZh": "店鋪簡介（中文）",
+      "prefecture": "所在都道府縣",
+      "submit": "提交申請",
+      "pending": "申請審核中",
+      "pendingHint": "我們將在3個工作日內完成審核"
+    },
+    "dashboard": {
+      "title": "商家後台",
+      "totalProducts": "在售商品",
+      "totalOrders": "總訂單",
+      "pendingOrders": "待處理",
+      "recentOrders": "最近訂單"
+    },
+    "products": {
+      "title": "商品管理",
+      "add": "新增商品",
+      "edit": "編輯",
+      "delete": "刪除",
+      "status": {
+        "draft": "草稿",
+        "active": "在售",
+        "inactive": "下架"
+      },
+      "publish": "上架",
+      "unpublish": "下架"
+    }
+  },
+  "admin": {
+    "title": "管理後台",
+    "merchants": "商家審核",
+    "approve": "通過",
+    "reject": "拒絕",
+    "suspend": "暫停",
+    "status": {
+      "pending": "待審核",
+      "approved": "已通過",
+      "suspended": "已暫停"
+    }
+  },
+  "common": {
+    "loading": "載入中",
+    "error": "出錯了",
+    "retry": "重試",
+    "save": "儲存",
+    "cancel": "取消",
+    "confirm": "確認",
+    "delete": "刪除",
+    "edit": "編輯",
+    "back": "返回",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋商品、商家...",
+    "noResults": "沒有找到結果",
+    "required": "必填",
+    "optional": "選填",
+    "submit": "提交",
+    "close": "關閉",
+    "more": "更多",
+    "viewAll": "查看全部",
+    "currency": "¥",
+    "jpy": "円",
+    "cny": "元"
+  },
+  "address": {
+    "name": "收貨人",
+    "phone": "電話號碼",
+    "province": "省份",
+    "city": "城市",
+    "district": "區/縣",
+    "address": "詳細地址",
+    "postalCode": "郵編",
+    "setDefault": "設為預設",
+    "default": "預設"
+  }
+}
