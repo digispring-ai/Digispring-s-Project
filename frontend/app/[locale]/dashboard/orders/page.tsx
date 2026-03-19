@@ -14,24 +14,37 @@ const statusVariant: Record<string, 'warning' | 'default' | 'success' | 'muted'>
 }
 
 export default async function DashboardOrdersPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  let merchant = null
+  let orderItems: any[] = []
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const { data: m } = await supabase.from('merchants').select('id').eq('user_id', user.id).single()
+      merchant = m
+      if (m) {
+        const { data: items } = await supabase
+          .from('order_items')
+          .select('*, orders(*), products(name_zh)')
+          .eq('merchant_id', m.id)
+          .order('created_at', { referencedTable: 'orders', ascending: false })
+          .limit(50)
+        orderItems = items ?? []
+      }
+    }
+  } catch {
+    // Supabase unavailable
+  }
+
   if (!user) redirect('/auth/login')
-
-  const { data: merchant } = await supabase
-    .from('merchants').select('id').eq('user_id', user.id).single()
   if (!merchant) redirect('/apply')
-
-  const { data: orderItems } = await supabase
-    .from('order_items')
-    .select('*, orders(*), products(name_zh)')
-    .eq('merchant_id', merchant.id)
-    .order('created_at', { referencedTable: 'orders', ascending: false })
-    .limit(50)
 
   // Group by order
   const orderMap = new Map<string, { order: any; items: any[] }>()
-  for (const item of orderItems ?? []) {
+  for (const item of orderItems) {
     const orderId = item.order_id
     if (!orderMap.has(orderId)) {
       orderMap.set(orderId, { order: item.orders, items: [] })

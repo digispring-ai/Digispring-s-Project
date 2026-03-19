@@ -21,18 +21,27 @@ interface Props {
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params
   const t = await getTranslations('order')
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  let order: any = null
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const { data: o } = await supabase
+        .from('orders')
+        .select('*, order_items(*, merchants(store_name_zh))')
+        .eq('id', id)
+        .eq('buyer_id', user.id)
+        .single()
+      order = o
+    }
+  } catch {
+    // Supabase unavailable
+  }
 
   if (!user) redirect('/auth/login')
-
-  const { data: order } = await supabase
-    .from('orders')
-    .select('*, order_items(*, merchants(store_name_zh))')
-    .eq('id', id)
-    .eq('buyer_id', user.id)
-    .single()
-
   if (!order) notFound()
 
   const addr = order.shipping_address as ShippingAddress

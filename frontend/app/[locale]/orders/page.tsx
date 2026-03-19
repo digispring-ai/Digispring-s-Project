@@ -16,23 +16,33 @@ const statusVariant: Record<string, 'default' | 'success' | 'warning' | 'danger'
 
 export default async function OrdersPage() {
   const t = await getTranslations('order')
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  let orders: any[] = []
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const { data: o } = await supabase
+        .from('orders')
+        .select('*, order_items(count)')
+        .eq('buyer_id', user.id)
+        .order('created_at', { ascending: false })
+      orders = o ?? []
+    }
+  } catch {
+    // Supabase unavailable
+  }
 
   if (!user) redirect('/auth/login')
-
-  const { data: orders } = await supabase
-    .from('orders')
-    .select('*, order_items(count)')
-    .eq('buyer_id', user.id)
-    .order('created_at', { ascending: false })
 
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <h1 className="text-2xl font-light text-ink tracking-wide mb-10">{t('title')}</h1>
 
-        {(!orders || orders.length === 0) ? (
+        {orders.length === 0 ? (
           <div className="py-24 text-center">
             <p className="text-4xl text-mist mb-4 select-none">無</p>
             <p className="text-sm font-light text-earth">{t('empty')}</p>
