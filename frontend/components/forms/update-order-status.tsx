@@ -27,13 +27,12 @@ interface Props {
 export function UpdateOrderStatusButton({ orderId, currentStatus }: Props) {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
-
   const nextStatus = NEXT_STATUS[currentStatus]
   if (!nextStatus) return null
 
   const handleUpdate = async () => {
     setLoading(true)
+    const supabase = createClient()
     await supabase.from('orders').update({ status: nextStatus }).eq('id', orderId)
     router.refresh()
     setLoading(false)

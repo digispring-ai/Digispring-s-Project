@@ -18,7 +18,6 @@ export function ProductForm({ merchantId, categories, product }: Props) {
   const t = useTranslations('merchant.products')
   const tc = useTranslations('common')
   const router = useRouter()
-  const supabase = createClient()
 
   const [form, setForm] = useState({
     name_ja: product?.name_ja ?? '',
@@ -47,6 +46,7 @@ export function ProductForm({ merchantId, categories, product }: Props) {
     setLoading(true)
     setError('')
 
+    const supabase = createClient()
     const payload = {
       merchant_id: merchantId,
       name_ja: form.name_ja,
