@@ -19,11 +19,11 @@ interface Props {
 export function ApproveMerchantButton({ merchantId, action }: Props) {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
   const { status, label, style } = ACTION_MAP[action]
 
   const handleClick = async () => {
     setLoading(true)
+    const supabase = createClient()
     await supabase.from('merchants').update({ status }).eq('id', merchantId)
     router.refresh()
     setLoading(false)
