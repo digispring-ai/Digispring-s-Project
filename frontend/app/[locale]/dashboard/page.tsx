@@ -10,17 +10,32 @@ import { Badge } from '@/components/ui/badge'
 export default async function DashboardPage() {
   const t = await getTranslations('merchant.dashboard')
   const tp = await getTranslations('merchant.products')
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  let merchant: any = null
+  let products: any[] = []
+  let recentOrders: any[] = []
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const { data: m } = await supabase.from('merchants').select('*').eq('user_id', user.id).single()
+      merchant = m
+      if (m?.status === 'approved') {
+        const [productsRes, ordersRes] = await Promise.all([
+          supabase.from('products').select('id, status').eq('merchant_id', m.id),
+          supabase.from('order_items').select('orders(id, status, total_cny, created_at)').eq('merchant_id', m.id).limit(5),
+        ])
+        products = productsRes.data ?? []
+        recentOrders = ordersRes.data ?? []
+      }
+    }
+  } catch {
+    // Supabase unavailable
+  }
 
   if (!user) redirect('/auth/login')
-
-  const { data: merchant } = await supabase
-    .from('merchants')
-    .select('*')
-    .eq('user_id', user.id)
-    .single()
-
   if (!merchant) redirect('/apply')
   if (merchant.status !== 'approved') {
     return (
@@ -35,18 +50,6 @@ export default async function DashboardPage() {
       </MainLayout>
     )
   }
-
-  const [productsRes, ordersRes] = await Promise.all([
-    supabase.from('products').select('id, status').eq('merchant_id', merchant.id),
-    supabase
-      .from('order_items')
-      .select('orders(id, status, total_cny, created_at)')
-      .eq('merchant_id', merchant.id)
-      .limit(5),
-  ])
-
-  const products = productsRes.data ?? []
-  const recentOrders = ordersRes.data ?? []
   const activeProducts = products.filter((p) => p.status === 'active').length
   const pendingOrders = recentOrders.filter((o) => (o.orders as any)?.status === 'pending').length
 

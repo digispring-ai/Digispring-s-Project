@@ -15,22 +15,27 @@ interface Props {
 export default async function MerchantStorePage({ params }: Props) {
   const { id } = await params
   const locale = (await getLocale()) as Locale
-  const supabase = await createClient()
+  let merchant: any = null
+  let products: any[] = []
 
-  const [merchantRes, productsRes] = await Promise.all([
-    supabase.from('merchants').select('*').eq('id', id).eq('status', 'approved').single(),
-    supabase
-      .from('products')
-      .select('*, merchants(*), categories(*)')
-      .eq('merchant_id', id)
-      .eq('status', 'active')
-      .order('created_at', { ascending: false }),
-  ])
+  try {
+    const supabase = await createClient()
+    const [merchantRes, productsRes] = await Promise.all([
+      supabase.from('merchants').select('*').eq('id', id).eq('status', 'approved').single(),
+      supabase
+        .from('products')
+        .select('*, merchants(*), categories(*)')
+        .eq('merchant_id', id)
+        .eq('status', 'active')
+        .order('created_at', { ascending: false }),
+    ])
+    merchant = merchantRes.data
+    products = productsRes.data ?? []
+  } catch {
+    // Supabase unavailable
+  }
 
-  if (!merchantRes.data) notFound()
-
-  const merchant = merchantRes.data
-  const products = productsRes.data ?? []
+  if (!merchant) notFound()
   const name = getLocalizedName(merchant as any, locale)
   const description =
     locale === 'ja'

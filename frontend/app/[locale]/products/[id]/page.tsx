@@ -18,27 +18,32 @@ export default async function ProductDetailPage({ params }: Props) {
   const { id } = await params
   const t = await getTranslations('product')
   const locale = (await getLocale()) as Locale
-  const supabase = await createClient()
+  let product: (Product & { merchants: any; categories: any }) | null = null
+  let reviews: any[] = []
 
-  const [productRes, reviewsRes] = await Promise.all([
-    supabase
-      .from('products')
-      .select('*, merchants(*), categories(*)')
-      .eq('id', id)
-      .eq('status', 'active')
-      .single(),
-    supabase
-      .from('reviews')
-      .select('*, profiles(full_name)')
-      .eq('product_id', id)
-      .order('created_at', { ascending: false })
-      .limit(20),
-  ])
+  try {
+    const supabase = await createClient()
+    const [productRes, reviewsRes] = await Promise.all([
+      supabase
+        .from('products')
+        .select('*, merchants(*), categories(*)')
+        .eq('id', id)
+        .eq('status', 'active')
+        .single(),
+      supabase
+        .from('reviews')
+        .select('*, profiles(full_name)')
+        .eq('product_id', id)
+        .order('created_at', { ascending: false })
+        .limit(20),
+    ])
+    product = productRes.data as Product & { merchants: any; categories: any }
+    reviews = reviewsRes.data ?? []
+  } catch {
+    // Supabase unavailable
+  }
 
-  if (!productRes.data) notFound()
-
-  const product = productRes.data as Product & { merchants: any; categories: any }
-  const reviews = reviewsRes.data ?? []
+  if (!product) notFound()
   const avgRating =
     reviews.length > 0
       ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length

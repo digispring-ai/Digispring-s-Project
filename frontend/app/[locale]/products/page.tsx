@@ -14,28 +14,33 @@ export default async function ProductsPage({ searchParams }: Props) {
   const tc = await getTranslations('common')
   const locale = (await getLocale()) as Locale
   const { category, q, sort } = await searchParams
-  const supabase = await createClient()
+  let categories: any[] = []
+  let products: any[] = []
 
-  const [categoriesRes, productsRes] = await Promise.all([
-    supabase.from('categories').select('*').order('sort_order'),
-    (() => {
-      let query = supabase
-        .from('products')
-        .select('*, merchants(*), categories(*)')
-        .eq('status', 'active')
+  try {
+    const supabase = await createClient()
+    const [categoriesRes, productsRes] = await Promise.all([
+      supabase.from('categories').select('*').order('sort_order'),
+      (() => {
+        let query = supabase
+          .from('products')
+          .select('*, merchants(*), categories(*)')
+          .eq('status', 'active')
 
-      if (category) query = query.eq('categories.slug', category)
-      if (q) query = query.ilike('name_zh', `%${q}%`)
-      if (sort === 'price_asc') query = query.order('price_cny', { ascending: true })
-      else if (sort === 'price_desc') query = query.order('price_cny', { ascending: false })
-      else query = query.order('created_at', { ascending: false })
+        if (category) query = query.eq('categories.slug', category)
+        if (q) query = query.ilike('name_zh', `%${q}%`)
+        if (sort === 'price_asc') query = query.order('price_cny', { ascending: true })
+        else if (sort === 'price_desc') query = query.order('price_cny', { ascending: false })
+        else query = query.order('created_at', { ascending: false })
 
-      return query.limit(48)
-    })(),
-  ])
-
-  const categories = categoriesRes.data ?? []
-  const products = productsRes.data ?? []
+        return query.limit(48)
+      })(),
+    ])
+    categories = categoriesRes.data ?? []
+    products = productsRes.data ?? []
+  } catch {
+    // Supabase unavailable
+  }
 
   return (
     <MainLayout>

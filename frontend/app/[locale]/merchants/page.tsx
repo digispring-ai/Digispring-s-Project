@@ -8,13 +8,19 @@ export default async function MerchantsPage() {
   const t = await getTranslations('nav')
   const tc = await getTranslations('common')
   const locale = (await getLocale()) as Locale
-  const supabase = await createClient()
+  let merchants: any[] = []
 
-  const { data: merchants } = await supabase
-    .from('merchants')
-    .select('*')
-    .eq('status', 'approved')
-    .order('created_at', { ascending: false })
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase
+      .from('merchants')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+    merchants = data ?? []
+  } catch {
+    // Supabase unavailable
+  }
 
   return (
     <MainLayout>
@@ -22,11 +28,11 @@ export default async function MerchantsPage() {
         <div className="mb-10">
           <h1 className="text-2xl font-light text-ink tracking-wide">{t('merchants')}</h1>
           <p className="text-sm font-light text-earth mt-1">
-            {(merchants ?? []).length} 家商家
+            {merchants.length} 家商家
           </p>
         </div>
 
-        {(!merchants || merchants.length === 0) ? (
+        {merchants.length === 0 ? (
           <div className="py-24 text-center">
             <p className="text-4xl text-mist mb-4 select-none">空</p>
             <p className="text-sm font-light text-earth">{tc('noResults')}</p>
