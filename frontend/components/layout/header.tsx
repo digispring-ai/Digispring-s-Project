@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations, useLocale } from 'next-intl'
-import { Link, usePathname, useRouter } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import { ShoppingCart, Menu, X, Globe, User } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
 import { useState } from 'react'
@@ -25,15 +25,9 @@ export function Header({ user, userRole }: HeaderProps) {
   const ts = useTranslations('site')
   const locale = useLocale() as Locale
   const pathname = usePathname()
-  const router = useRouter()
   const totalItems = useCartStore((s) => s.totalItems())
   const [mobileOpen, setMobileOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
-
-  const switchLocale = (next: Locale) => {
-    router.replace(pathname, { locale: next })
-    setLangOpen(false)
-  }
 
   const navLinks = [
     { href: '/', label: t('home') },
@@ -106,10 +100,12 @@ export function Header({ user, userRole }: HeaderProps) {
                 {langOpen && (
                   <div className="absolute right-0 top-full mt-2 w-36 bg-washi border border-mist shadow-sm z-50">
                     {LOCALES.map((loc, i) => (
-                      <button
+                      <Link
                         key={loc.value}
-                        onClick={() => switchLocale(loc.value)}
-                        className={`w-full text-left px-4 py-2.5 text-xs font-light tracking-wide transition-colors ${
+                        href={pathname}
+                        locale={loc.value}
+                        onClick={() => setLangOpen(false)}
+                        className={`block w-full px-4 py-2.5 text-xs font-light tracking-wide transition-colors ${
                           i > 0 ? 'border-t border-mist/50' : ''
                         } ${
                           locale === loc.value
@@ -118,7 +114,7 @@ export function Header({ user, userRole }: HeaderProps) {
                         }`}
                       >
                         {loc.label}
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 )}
