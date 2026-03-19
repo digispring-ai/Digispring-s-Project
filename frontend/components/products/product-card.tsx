@@ -28,50 +28,62 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/products/${product.id}`} className="group block">
-      <div className="relative overflow-hidden bg-mist/30 aspect-square rounded">
+      {/* Image container — sharp corners, no radius */}
+      <div className="relative overflow-hidden bg-mist/25 aspect-square">
         {coverImage ? (
           <Image
             src={coverImage}
             alt={name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-103"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-3xl text-mist select-none">和</span>
+            <span className="text-4xl text-mist select-none font-serif">和</span>
           </div>
         )}
+
+        {/* Out of stock overlay */}
         {product.stock === 0 && (
-          <div className="absolute inset-0 bg-washi/70 flex items-center justify-center">
-            <span className="text-xs font-light text-earth tracking-widest">{t('outOfStock')}</span>
+          <div className="absolute inset-0 bg-washi/75 flex items-center justify-center">
+            <span className="text-[10px] font-light text-earth tracking-[0.25em]">
+              {t('outOfStock')}
+            </span>
           </div>
         )}
-        {/* Quick add button */}
+
+        {/* Quick add — bottom-left, appears on hover */}
         {product.stock > 0 && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-3 right-3 w-8 h-8 bg-ink text-washi rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-earth"
+            className="absolute bottom-0 left-0 right-0 h-8 bg-ink/85 text-washi text-[10px] font-light tracking-[0.2em] flex items-center justify-center gap-1.5 opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-sumi"
             aria-label={t('addToCart')}
           >
-            <ShoppingCart className="w-3.5 h-3.5" />
+            <ShoppingCart className="w-3 h-3" />
+            {t('addToCart')}
           </button>
         )}
+
+        {/* Top-right: Japanese-style label if new */}
+        {/* Could add "新着" badge here based on created_at logic */}
       </div>
+
+      {/* Product info */}
       <div className="mt-3 space-y-1">
         {product.merchants && (
-          <p className="text-xs font-light text-earth/60 tracking-wide truncate">
+          <p className="text-[10px] font-light text-earth/50 tracking-[0.15em] truncate uppercase">
             {getLocalizedName(product.merchants, locale)}
           </p>
         )}
-        <h3 className="text-sm font-light text-ink leading-snug line-clamp-2 group-hover:text-earth transition-colors">
+        <h3 className="text-sm font-light text-ink leading-snug line-clamp-2 group-hover:text-earth transition-colors duration-200 tracking-wide">
           {name}
         </h3>
-        <div className="flex items-baseline gap-2">
-          <span className="text-sm font-light text-ink">
+        <div className="flex items-baseline gap-2 pt-0.5">
+          <span className="text-sm font-light text-ink tracking-wide">
             {formatPrice(product.price_cny)}
           </span>
-          <span className="text-xs text-earth/50 font-light">
+          <span className="text-[10px] text-earth/40 font-light">
             {formatPrice(product.price_jpy, 'jpy')}
           </span>
         </div>
