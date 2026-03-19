@@ -5,21 +5,31 @@ import { Badge } from '@/components/ui/badge'
 import { ApproveMerchantButton } from '@/components/forms/approve-merchant-button'
 
 export default async function AdminPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/auth/login')
+  let user = null
+  let profile = null
+  let merchants: any[] = []
 
-  const { data: profile } = await supabase
-    .from('profiles').select('role').eq('id', user.id).single()
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const [profileRes, merchantsRes] = await Promise.all([
+        supabase.from('profiles').select('role').eq('id', user.id).single(),
+        supabase.from('merchants').select('*, profiles(full_name)').order('created_at', { ascending: false }),
+      ])
+      profile = profileRes.data
+      merchants = merchantsRes.data ?? []
+    }
+  } catch {
+    // Supabase unavailable
+  }
+
+  if (!user) redirect('/auth/login')
   if (profile?.role !== 'admin') redirect('/')
 
-  const { data: merchants } = await supabase
-    .from('merchants')
-    .select('*, profiles(full_name)')
-    .order('created_at', { ascending: false })
-
-  const pending = merchants?.filter((m) => m.status === 'pending') ?? []
-  const others = merchants?.filter((m) => m.status !== 'pending') ?? []
+  const pending = merchants.filter((m) => m.status === 'pending')
+  const others = merchants.filter((m) => m.status !== 'pending')
 
   return (
     <MainLayout>

@@ -5,13 +5,22 @@ import { createClient } from '@/lib/supabase/server'
 
 export default async function AccountPage() {
   const t = await getTranslations('auth')
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+  let profile = null
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user ?? null
+    if (user) {
+      const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
+      profile = p
+    }
+  } catch {
+    // Supabase unavailable
+  }
 
   if (!user) redirect('/auth/login')
-
-  const { data: profile } = await supabase
-    .from('profiles').select('*').eq('id', user.id).single()
 
   return (
     <MainLayout>
