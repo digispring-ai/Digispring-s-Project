@@ -220,5 +220,123 @@ begin
      'active',
      ARRAY['美白', 'ビタミンC', '美容液', 'whitening', 'serum', 'brightening']);
 
-  raise notice '✓ Demo seed complete — 3 merchants, 6 products inserted';
+  raise notice '✓ Demo seed — merchants 1-3 done';
+end $$;
+
+-- ============================================================
+-- Merchant 4: 職人靴工房 田中 (Tanaka Artisan Footwear)
+-- ============================================================
+do $$
+declare
+  demo_user4    uuid := 'dddddddd-dddd-4ddd-dddd-dddddddddddd';
+  merchant4_id  uuid := '44444444-4444-4444-4444-444444444444';
+  cat_fashion   int;
+begin
+  select id into cat_fashion from categories where slug = 'fashion';
+
+  -- ── Auth user ─────────────────────────────────────────────
+  begin
+    insert into auth.users (
+      instance_id, id, aud, role, email,
+      encrypted_password, email_confirmed_at,
+      raw_app_meta_data, raw_user_meta_data,
+      created_at, updated_at,
+      confirmation_token, email_change, email_change_token_new, recovery_token
+    ) values (
+      '00000000-0000-0000-0000-000000000000', demo_user4,
+      'authenticated', 'authenticated', 'tanaka-footwear@demo.waichi.local', '',
+      now(), '{"provider":"email","providers":["email"]}',
+      '{"full_name":"職人靴工房 田中"}', now(), now(), '', '', '', ''
+    )
+    on conflict (id) do nothing;
+  exception when others then
+    raise notice 'Skipping auth.users insert (hosted Supabase): %', sqlerrm;
+  end;
+
+  -- ── Profile ───────────────────────────────────────────────
+  insert into profiles (id, role, full_name)
+  values (demo_user4, 'merchant', '職人靴工房 田中')
+  on conflict (id) do nothing;
+
+  -- ── Merchant ──────────────────────────────────────────────
+  insert into merchants (
+    id, user_id,
+    store_name_ja, store_name_zh, store_name_en,
+    description_ja, description_zh, description_en,
+    prefecture, status
+  ) values (
+    merchant4_id, demo_user4,
+    '職人靴工房 田中',
+    '田中手工皮鞋工坊',
+    'Tanaka Artisan Footwear',
+    '奈良で三代続く革靴工房。国内産ヌバックレザーを一枚一枚手縫いで仕上げ、足に馴染む履き心地と長く使える耐久性を両立。注文から約3週間でお届けします。',
+    '奈良三代传承的手工皮鞋工坊。采用国产绒面皮革逐一手工缝制，兼顾贴合脚型的舒适感与经久耐用。接单后约3周发货。',
+    'Three-generation artisan shoe workshop in Nara. Each pair is hand-stitched from domestic nubuck leather for a perfect fit and lasting durability. Ships in approx. 3 weeks.',
+    '奈良県', 'approved'
+  )
+  on conflict (id) do nothing;
+
+  -- ── Products ──────────────────────────────────────────────
+  insert into products (
+    merchant_id, category_id,
+    name_ja, name_zh, name_zh_hant, name_en,
+    description_ja, description_zh, description_zh_hant, description_en,
+    price_jpy, price_cny, stock, images, status, tags
+  ) values
+
+    -- Product 7: Natural nubuck slip-on (craftsman + workbench shots)
+    (merchant4_id, cat_fashion,
+     '手縫いスリッポン ナチュラルヌバック',
+     '手工缝制一脚蹬 天然绒面革',
+     '手縫一脚蹬 天然絨面革',
+     'Hand-stitched Slip-on — Natural Nubuck',
+     '柔らかな国産ヌバックレザーを職人が一針一針手縫い。シンプルなシルエットの中に素材の質感と手仕事の温もりが宿るスリッポン。長く履くほど足の形に馴染み、経年変化をお楽しみいただけます。23〜28cm（0.5cm刻み）。',
+     '采用柔软国产绒面革，由职人逐针手工缝制。简洁的轮廓中蕴含材质质感与手工温度。越穿越贴脚，尽享岁月变化之美。23〜28cm（0.5cm间隔）。',
+     '採用柔軟國產絨面革，由職人逐針手工縫製。簡潔的輪廓中蘊含材質質感與手工溫度。越穿越貼腳，盡享歲月變化之美。23〜28cm（0.5cm間隔）。',
+     'Hand-stitched slip-on crafted from soft domestic nubuck leather. The clean silhouette showcases the warmth of artisan craftsmanship. Moulds to your foot over time. Sizes 23–28 cm.',
+     32000, 1588, 10,
+     ARRAY[
+       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop',
+       'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80&fit=crop'
+     ],
+     'active',
+     ARRAY['革靴', '手縫い', 'ヌバック', '奈良', 'leather', 'slip-on', 'handmade']),
+
+    -- Product 8: Floral embroidered slip-on
+    (merchant4_id, cat_fashion,
+     '刺繍スリッポン 花柄（ベージュ）',
+     '刺绣一脚蹬 花卉图案（米色）',
+     '刺繡一脚蹬 花卉圖案（米色）',
+     'Embroidered Slip-on — Floral Beige',
+     'ナチュラルヌバックに熟練の職人が草花の刺繍を一面に施した限定モデル。同じ柄は二つとなく、履くたびに新たな発見がある一足。フォーマルにもカジュアルにも合わせやすい上品なベージュ。',
+     '天然绒面革上由熟练职人遍刺草花刺绣的限量款式。每双图案独一无二，每次穿着都有新发现。优雅米色，正式休闲均可搭配。',
+     '天然絨面革上由熟練職人遍刺草花刺繡的限量款式。每雙圖案獨一無二，每次穿著都有新發現。優雅米色，正式休閒均可搭配。',
+     'Limited edition slip-on with hand-embroidered floral motifs on natural nubuck. Each pair is unique. Elegant beige suits both formal and casual styles.',
+     42000, 2085, 5,
+     ARRAY[
+       'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&q=80&fit=crop',
+       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop'
+     ],
+     'active',
+     ARRAY['刺繍', '花柄', '革靴', '限定', 'embroidery', 'floral', 'leather']),
+
+    -- Product 9: Signature slip-on in black
+    (merchant4_id, cat_fashion,
+     'シグネチャースリッポン ブラック',
+     '签名款一脚蹬 黑色',
+     '簽名款一脚蹬 黑色',
+     'Signature Slip-on — Black',
+     '工房の定番、漆黒に染めたスムースレザーのシグネチャーモデル。どんなコーディネートにも馴染む洗練されたブラック。マッケイ製法でソールが薄く、スマートな履き心地。踵の金文字「田中」が工房の誇りの証。',
+     '工坊经典款，漆黑光滑皮革的招牌款式。深邃黑色百搭任何造型。麦凯制法让鞋底纤薄，穿着利落。鞋跟金色「田中」字样，是工坊匠心的印证。',
+     '工坊經典款，漆黑光滑皮革的招牌款式。深邃黑色百搭任何造型。麥凱製法讓鞋底纖薄，穿著俐落。鞋跟金色「田中」字樣，是工坊匠心的印證。',
+     'The workshop''s iconic signature model in polished black smooth leather. Versatile black suits any outfit. Blake-stitched construction for a slim, sleek sole. Gold "Tanaka" stamp on the heel.',
+     38000, 1886, 8,
+     ARRAY[
+       'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80&fit=crop',
+       'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80&fit=crop'
+     ],
+     'active',
+     ARRAY['革靴', 'ブラック', 'シグネチャー', '奈良', 'leather', 'black', 'signature']);
+
+  raise notice '✓ Merchant 4 (職人靴工房 田中) + 3 products inserted';
 end $$;
