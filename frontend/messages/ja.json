@@ -112,7 +112,14 @@
     "asMerchant": "出店者として",
     "forgotPassword": "パスワードをお忘れの方",
     "loginSuccess": "ログインしました",
-    "registerSuccess": "登録が完了しました"
+    "registerSuccess": "登録が完了しました",
+    "invalidCredentials": "メールアドレスまたはパスワードが正しくありません。",
+    "emailNotConfirmed": "メールアドレスが未確認です。受信箱の確認メールからリンクをクリックしてください。",
+    "checkEmail": "確認メールをご確認ください",
+    "checkEmailHint": "入力されたメールアドレスに確認メールを送信しました。メール内のリンクをクリックして登録を完了してください。",
+    "checkSpam": "メールが届かない場合は迷惑メールフォルダをご確認ください",
+    "goToLogin": "ログインへ",
+    "emailConfirmNotice": "登録後、メール確認が完了するとログインできます"
   },
   "merchant": {
     "apply": {
