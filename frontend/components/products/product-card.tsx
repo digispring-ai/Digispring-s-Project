@@ -72,7 +72,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Product info */}
       <div className="mt-3 space-y-1">
         {product.merchants && (
-          <p className="text-[10px] font-light text-earth/50 tracking-[0.15em] truncate uppercase">
+          <p className="text-[10px] font-light text-earth tracking-[0.15em] truncate uppercase">
             {getLocalizedName(product.merchants, locale)}
           </p>
         )}
@@ -83,7 +83,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-sm font-light text-ink tracking-wide">
             {formatPrice(product.price_cny)}
           </span>
-          <span className="text-[10px] text-earth/40 font-light">
+          <span className="text-[10px] text-earth/70 font-light">
             {formatPrice(product.price_jpy, 'jpy')}
           </span>
         </div>

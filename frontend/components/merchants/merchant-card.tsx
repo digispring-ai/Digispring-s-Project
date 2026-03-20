@@ -64,13 +64,13 @@ export function MerchantCard({ merchant, productCount }: MerchantCardProps) {
           </h3>
           {/* Japanese store name always shown if locale isn't ja */}
           {locale !== 'ja' && merchant.store_name_ja && merchant.store_name_ja !== name && (
-            <p className="text-[10px] font-light text-earth/50 tracking-wide">
+            <p className="text-[10px] font-light text-earth tracking-wide">
               {merchant.store_name_ja}
             </p>
           )}
         </div>
         {productCount !== undefined && (
-          <p className="text-[10px] text-earth/40 font-light tracking-wide shrink-0 ml-2 mt-0.5">
+          <p className="text-[10px] text-earth/70 font-light tracking-wide shrink-0 ml-2 mt-0.5">
             {productCount} 件
           </p>
         )}

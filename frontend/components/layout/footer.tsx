@@ -34,7 +34,7 @@ export function Footer() {
               {t('description')}
             </p>
             {/* Seasonal phrase */}
-            <p className="mt-5 text-xs font-light text-earth/40 tracking-[0.2em] italic">
+            <p className="mt-5 text-xs font-light text-earth tracking-[0.2em] italic">
               一期一会 — Cherish every encounter
             </p>
           </div>
@@ -75,7 +75,7 @@ export function Footer() {
               </div>
             </div>
             {/* Tagline */}
-            <p className="text-[10px] font-light text-earth/40 tracking-[0.25em] mt-6">
+            <p className="text-[10px] font-light text-earth tracking-[0.25em] mt-6">
               JAPAN × CHINA
             </p>
           </div>
@@ -83,11 +83,11 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-mist/60 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-[11px] font-light text-earth/50 tracking-wide">
+          <p className="text-[11px] font-light text-earth tracking-wide">
             © {new Date().getFullYear()} {t('name')} · 和市
           </p>
           <div className="flex items-center gap-3">
-            <span className="text-[11px] font-light text-earth/30 tracking-wider">
+            <span className="text-[11px] font-light text-earth/70 tracking-wider">
               日本 → 中国 Cross-border Commerce
             </span>
           </div>
