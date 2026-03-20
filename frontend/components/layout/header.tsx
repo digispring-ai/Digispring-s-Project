@@ -54,7 +54,7 @@ export function Header({ user, userRole }: HeaderProps) {
                 <span className="text-base font-light text-ink tracking-[0.22em] font-serif">
                   {ts('name')}
                 </span>
-                <span className="text-[10px] text-earth/60 font-light tracking-[0.18em] mt-0.5">
+                <span className="text-[10px] text-earth font-light tracking-[0.18em] mt-0.5">
                   {locale === 'ja' ? '日本から中国へ' : '日本 → 中国'}
                 </span>
               </div>
@@ -172,7 +172,7 @@ export function Header({ user, userRole }: HeaderProps) {
                     <form action="/auth/signout" method="post">
                       <button
                         type="submit"
-                        className="w-full text-left px-4 py-2.5 text-xs font-light text-earth/70 hover:bg-mist/40 hover:text-ink transition-colors tracking-wide"
+                        className="w-full text-left px-4 py-2.5 text-xs font-light text-earth hover:bg-mist/40 hover:text-ink transition-colors tracking-wide"
                       >
                         {t('logout')}
                       </button>

@@ -291,7 +291,7 @@ export default async function HomePage() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <div className="jp-section-label mb-2">{t('featured')}</div>
-              <p className="text-[11px] font-light text-earth/50 tracking-[0.2em]">精選商品</p>
+              <p className="text-[11px] font-light text-earth/70 tracking-[0.2em]">精選商品</p>
             </div>
             <Link
               href="/products"
@@ -316,7 +316,7 @@ export default async function HomePage() {
             <div className="flex items-end justify-between mb-10">
               <div>
                 <div className="jp-section-label mb-2">{t('merchants')}</div>
-                <p className="text-[11px] font-light text-earth/50 tracking-[0.2em]">出店商家</p>
+                <p className="text-[11px] font-light text-earth/70 tracking-[0.2em]">出店商家</p>
               </div>
               <Link
                 href="/merchants"
