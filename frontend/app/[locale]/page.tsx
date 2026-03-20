@@ -8,6 +8,149 @@ import { getCategoryName } from '@/lib/utils'
 import type { Locale } from '@/types'
 import { ArrowRight } from 'lucide-react'
 
+// ── Static fallback demo data (shown when DB is unavailable) ──────────────
+const FALLBACK_MERCHANTS = [
+  {
+    id: '11111111-1111-4111-1111-111111111111',
+    store_name_ja: '京都陶芸工房',
+    store_name_zh: '京都陶艺工坊',
+    store_name_en: 'Kyoto Ceramics Studio',
+    description_ja: '京都の伝統的な陶芸技術を守り続ける工房。匠の手による一点物の器をお届けします。',
+    description_zh: '传承京都传统陶艺技术的工坊，每件器皿均由匠人手工打造，独一无二。',
+    description_en: 'A studio preserving traditional Kyoto ceramics. Each piece is handcrafted by skilled artisans.',
+    prefecture: '京都府',
+    banner_image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80&fit=crop',
+    status: 'approved',
+  },
+  {
+    id: '22222222-2222-4222-2222-222222222222',
+    store_name_ja: '東京和傘堂',
+    store_name_zh: '东京和伞堂',
+    store_name_en: 'Tokyo Wagasa House',
+    description_ja: '江戸時代から受け継がれる和傘・提灯の専門店。伝統の技法で一本一本仕上げています。',
+    description_zh: '传承江户时代工艺的和伞、提灯专门店，以传统工法精心制作每一件作品。',
+    description_en: 'Traditional Japanese umbrella & lantern shop with Edo-period heritage.',
+    prefecture: '東京都',
+    banner_image: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80&fit=crop',
+    status: 'approved',
+  },
+  {
+    id: '33333333-3333-4333-3333-333333333333',
+    store_name_ja: '美肌本舗',
+    store_name_zh: '美肌本铺',
+    store_name_en: 'Bihada Honpo',
+    description_ja: '日本の厳選された美容成分を使用したスキンケアブランド。自然の恵みで肌を育てます。',
+    description_zh: '采用日本严选美容成分的护肤品牌，以自然之精华温和滋养肌肤。',
+    description_en: 'Japanese skincare brand using carefully selected natural beauty ingredients.',
+    prefecture: '大阪府',
+    banner_image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop',
+    status: 'approved',
+  },
+  {
+    id: '44444444-4444-4444-4444-444444444444',
+    store_name_ja: '職人靴工房 田中',
+    store_name_zh: '田中手工皮鞋工坊',
+    store_name_en: 'Tanaka Artisan Footwear',
+    description_ja: '奈良で三代続く革靴工房。国内産ヌバックレザーを手縫いで仕上げ、足に馴染む履き心地を追求。',
+    description_zh: '奈良三代传承的手工皮鞋工坊。采用国产绒面皮革逐一手工缝制，兼顾舒适感与耐用性。',
+    description_en: 'Three-generation artisan shoe workshop in Nara. Hand-stitched domestic nubuck leather.',
+    prefecture: '奈良県',
+    banner_image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop',
+    status: 'approved',
+  },
+]
+
+const FALLBACK_PRODUCTS = [
+  {
+    id: 'p1',
+    name_ja: '桜絵付け 茶碗セット（2個）',
+    name_zh: '樱花彩绘茶碗套装（2只）',
+    name_en: 'Sakura Hand-painted Tea Cup Set',
+    price_jpy: 4800, price_cny: 238,
+    images: ['https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '京都陶芸工房', store_name_zh: '京都陶艺工坊' },
+    categories: { name_ja: '茶器', slug: 'tea' },
+  },
+  {
+    id: 'p2',
+    name_ja: '草花文様 手轆轤 茶碗・茶托セット',
+    name_zh: '草花纹手拉坯茶碗茶托套装',
+    name_en: 'Botanical Hand-thrown Ceramic Cup & Saucer',
+    price_jpy: 12000, price_cny: 596,
+    images: ['https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '京都陶芸工房', store_name_zh: '京都陶艺工坊' },
+    categories: { name_ja: '手工芸', slug: 'handmade' },
+  },
+  {
+    id: 'p3',
+    name_ja: '菊花和傘 黒×赤',
+    name_zh: '菊花和伞 黑×红',
+    name_en: 'Chrysanthemum Wagasa — Black & Red',
+    price_jpy: 18000, price_cny: 894,
+    images: ['https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '東京和傘堂', store_name_zh: '东京和伞堂' },
+    categories: { name_ja: '手工芸', slug: 'handmade' },
+  },
+  {
+    id: 'p4',
+    name_ja: '桜提灯 大（直径30cm）',
+    name_zh: '樱花提灯 大号（直径30cm）',
+    name_en: 'Sakura Paper Lantern — Large',
+    price_jpy: 6800, price_cny: 338,
+    images: ['https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '東京和傘堂', store_name_zh: '东京和伞堂' },
+    categories: { name_ja: 'インテリア', slug: 'home' },
+  },
+  {
+    id: 'p5',
+    name_ja: 'アクア モイスチャー 4点セット',
+    name_zh: '水润保湿护肤四件套',
+    name_en: 'Aqua Moisture 4-Piece Skincare Set',
+    price_jpy: 9800, price_cny: 486,
+    images: ['https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '美肌本舗', store_name_zh: '美肌本铺' },
+    categories: { name_ja: '美容', slug: 'beauty' },
+  },
+  {
+    id: 'p6',
+    name_ja: '手縫いスリッポン ナチュラルヌバック',
+    name_zh: '手工缝制一脚蹬 天然绒面革',
+    name_en: 'Hand-stitched Slip-on — Natural Nubuck',
+    price_jpy: 32000, price_cny: 1588,
+    images: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '職人靴工房 田中', store_name_zh: '田中手工皮鞋工坊' },
+    categories: { name_ja: 'ファッション', slug: 'fashion' },
+  },
+  {
+    id: 'p7',
+    name_ja: '刺繍スリッポン 花柄（ベージュ）',
+    name_zh: '刺绣一脚蹬 花卉图案（米色）',
+    name_en: 'Embroidered Slip-on — Floral Beige',
+    price_jpy: 42000, price_cny: 2085,
+    images: ['https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '職人靴工房 田中', store_name_zh: '田中手工皮鞋工坊' },
+    categories: { name_ja: 'ファッション', slug: 'fashion' },
+  },
+  {
+    id: 'p8',
+    name_ja: 'シグネチャースリッポン ブラック',
+    name_zh: '签名款一脚蹬 黑色',
+    name_en: 'Signature Slip-on — Black',
+    price_jpy: 38000, price_cny: 1886,
+    images: ['https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&q=80&fit=crop'],
+    status: 'active',
+    merchants: { store_name_ja: '職人靴工房 田中', store_name_zh: '田中手工皮鞋工坊' },
+    categories: { name_ja: 'ファッション', slug: 'fashion' },
+  },
+]
+
 export default async function HomePage() {
   const t = await getTranslations('home')
   const tn = await getTranslations('nav')
@@ -40,6 +183,10 @@ export default async function HomePage() {
   } catch {
     // Database unavailable — render page without dynamic content
   }
+
+  // Fall back to static demo data when DB is unavailable
+  if (products.length === 0) products = FALLBACK_PRODUCTS
+  if (merchants.length === 0) merchants = FALLBACK_MERCHANTS
 
   const validCatKeys = ['home', 'daily', 'handmade', 'sake', 'beauty', 'food', 'tea', 'stationery', 'fashion', 'health', 'garden', 'pet'] as const
   type CatKey = typeof validCatKeys[number]
