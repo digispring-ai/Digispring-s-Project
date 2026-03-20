@@ -20,6 +20,7 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,7 +28,7 @@ export default function RegisterPage() {
     setError('')
 
     const supabase = createClient()
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -36,11 +37,26 @@ export default function RegisterPage() {
     })
 
     if (error) {
-      setError(error.message)
+      // Surface friendly messages for common cases
+      if (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('Failed')) {
+        setError('网络连接失败，请稍后重试。 / Network error, please try again.')
+      } else if (error.status === 429) {
+        setError('操作过于频繁，请稍等片刻。 / Too many requests, please wait.')
+      } else {
+        setError(error.message)
+      }
       setLoading(false)
       return
     }
 
+    // session is null → Supabase requires email confirmation before login
+    if (!data.session) {
+      setEmailSent(true)
+      setLoading(false)
+      return
+    }
+
+    // session exists → email confirmation disabled, user is already logged in
     if (role === 'merchant') {
       router.push('/apply')
     } else {
@@ -49,6 +65,37 @@ export default function RegisterPage() {
     router.refresh()
   }
 
+  // ── Email confirmation pending ────────────────────────────
+  if (emailSent) {
+    return (
+      <div className="min-h-screen bg-washi flex items-center justify-center px-4">
+        <div className="w-full max-w-sm text-center">
+          <Link href="/" className="text-2xl font-light text-ink tracking-widest">
+            {ts('name')}
+          </Link>
+          <div className="mt-10 bg-white border border-mist p-10">
+            <div className="jp-seal w-12 h-12 text-xl mx-auto mb-6 font-serif">確</div>
+            <h2 className="text-base font-light text-ink tracking-wide mb-3">
+              {t('checkEmail') ?? '请查收确认邮件'}
+            </h2>
+            <p className="text-sm font-light text-earth leading-relaxed mb-6">
+              {t('checkEmailHint') ?? `确认邮件已发送至 ${email}，点击邮件中的链接完成注册。`}
+            </p>
+            <p className="text-xs font-light text-earth/50">
+              {t('checkSpam') ?? '如未收到，请检查垃圾邮件文件夹'}
+            </p>
+            <div className="mt-8 pt-6 border-t border-mist">
+              <Link href="/auth/login" className="text-sm font-light text-ink underline underline-offset-2 hover:text-earth transition-colors">
+                {t('goToLogin') ?? '前往登录'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── Registration form ─────────────────────────────────────
   return (
     <div className="min-h-screen bg-washi flex items-center justify-center px-4">
       <div className="w-full max-w-sm">

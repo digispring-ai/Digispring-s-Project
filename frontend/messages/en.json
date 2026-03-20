@@ -112,7 +112,14 @@
     "asMerchant": "I'm a Merchant",
     "forgotPassword": "Forgot password?",
     "loginSuccess": "Logged in successfully",
-    "registerSuccess": "Account created successfully"
+    "registerSuccess": "Account created successfully",
+    "invalidCredentials": "Incorrect email or password. Please try again.",
+    "emailNotConfirmed": "Email not confirmed. Please check your inbox and click the confirmation link before logging in.",
+    "checkEmail": "Check your email",
+    "checkEmailHint": "A confirmation email has been sent to your address. Click the link in the email to complete registration.",
+    "checkSpam": "If you don't see it, check your spam folder",
+    "goToLogin": "Go to Login",
+    "emailConfirmNotice": "You'll need to verify your email before logging in"
   },
   "merchant": {
     "apply": {

@@ -112,7 +112,14 @@
     "asMerchant": "我是商家",
     "forgotPassword": "忘記密碼？",
     "loginSuccess": "登入成功",
-    "registerSuccess": "註冊成功"
+    "registerSuccess": "註冊成功",
+    "invalidCredentials": "電子郵件或密碼錯誤，請重試。",
+    "emailNotConfirmed": "電子郵件尚未驗證，請檢查收件匣並點擊確認連結後再登入。",
+    "checkEmail": "請查收確認郵件",
+    "checkEmailHint": "確認郵件已發送至您的信箱，請點擊郵件中的連結完成註冊。",
+    "checkSpam": "如未收到，請檢查垃圾郵件資料夾",
+    "goToLogin": "前往登入",
+    "emailConfirmNotice": "註冊後需驗證電子郵件方可登入"
   },
   "merchant": {
     "apply": {
