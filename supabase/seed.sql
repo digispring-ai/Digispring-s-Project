@@ -153,8 +153,8 @@ begin
      'Traditional wagasa hand-crafted with a chrysanthemum motif. Bold black and red contrast. Popular as room decor and photo props. 90 cm diameter, 32 bamboo ribs.',
      18000, 894, 8,
      ARRAY[
-       'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80&fit=crop',
-       'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&q=80&fit=crop'
+       '/images/products/wagasa-chrysanthemum.jpg',
+       '/images/products/wagasa-chrysanthemum.jpg'
      ],
      'active',
      ARRAY['和傘', '伝統工芸', '菊', 'wagasa', 'umbrella', 'traditional']),
@@ -296,8 +296,8 @@ begin
      'Hand-stitched slip-on crafted from soft domestic nubuck leather. The clean silhouette showcases the warmth of artisan craftsmanship. Moulds to your foot over time. Sizes 23–28 cm.',
      32000, 1588, 10,
      ARRAY[
-       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop',
-       'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80&fit=crop'
+       '/images/products/shoe-natural-crafting.jpg',
+       '/images/products/shoe-natural-finished.jpg'
      ],
      'active',
      ARRAY['革靴', '手縫い', 'ヌバック', '奈良', 'leather', 'slip-on', 'handmade']),
@@ -314,8 +314,8 @@ begin
      'Limited edition slip-on with hand-embroidered floral motifs on natural nubuck. Each pair is unique. Elegant beige suits both formal and casual styles.',
      42000, 2085, 5,
      ARRAY[
-       'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&q=80&fit=crop',
-       'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&fit=crop'
+       '/images/products/shoe-floral-crafting.jpg',
+       '/images/products/shoe-floral-finished.jpg'
      ],
      'active',
      ARRAY['刺繍', '花柄', '革靴', '限定', 'embroidery', 'floral', 'leather']),
